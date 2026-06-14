@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اختبار الصداقة المحمي 🌟</title>
+    <title>اختبار الصداقة المطور 🌟</title>
     <style>
         * { box-sizing: border-box; }
         body { 
@@ -15,13 +15,15 @@
             box-shadow: 0px 10px 30px rgba(0,255,204,0.1); width: 100%; max-width: 500px; text-align: center;
         }
         h1 { color: #66fcf1; font-size: 24px; margin-bottom: 25px; }
-        .question { font-size: 18px; margin-bottom: 20px; display: none; line-height: 1.6; }
-        .question.active { display: block; }
+        .question, .screen { font-size: 18px; margin-bottom: 20px; display: none; line-height: 1.6; }
+        .active { display: block; }
         .answers-grid { display: flex; flex-direction: column; gap: 12px; }
-        button { 
+        button, input { 
             padding: 14px; border-radius: 10px; border: 2px solid #45f3ff; background-color: transparent; 
-            color: #fff; font-size: 16px; cursor: pointer; transition: 0.3s ease; text-align: right;
+            color: #fff; font-size: 16px; cursor: pointer; transition: 0.3s ease;
         }
+        input { width: 100%; text-align: center; margin-bottom: 15px; outline: none; }
+        input:focus { box-shadow: 0 0 10px #45f3ff; }
         button:hover { background-color: #45f3ff; color: #000; font-weight: bold; box-shadow: 0 0 15px #45f3ff; }
         .result-box { display: none; }
         .result-box h2 { color: #66fcf1; font-size: 28px; }
@@ -36,8 +38,18 @@
 <body>
 
 <div class="quiz-container">
-    <div id="quiz-box">
-        <h1>✨ هل تعرفني جيداً؟ اختبار الصداقة ✨</h1>
+    <!-- الشاشة الأولى: إدخال الاسم (مصابة بالثغرة عمداً) -->
+    <div class="screen active" id="start-screen">
+        <h1>✨ مرحباً بك في اختبار الصداقة ✨</h1>
+        <p style="margin-bottom: 15px;">الرجاء كتابة اسمك للبدء:</p>
+        <input type="text" id="username" placeholder="اكتب اسمك هنا">
+        <button style="width: 100%; text-align: center;" onclick="startQuiz()">ابدأ الاختبار 🚀</button>
+    </div>
+
+    <!-- صندوق الأسئلة (مخفي ويظهر بعد إدخال الاسم) -->
+    <div id="quiz-box" style="display: none;">
+        <!-- نص الترحيب الذي تظهر فيه الثغرة -->
+        <div id="welcome-message" style="font-size: 20px; color: #66fcf1; margin-bottom: 20px; font-weight: bold;"></div>
         
         <div class="question active" id="q1">
             <p>1. كم عمري؟ 🤔</p>
@@ -67,6 +79,7 @@
         </div>
     </div>
 
+    <!-- صندوق النتيجة النهائية -->
     <div id="result-box" class="result-box">
         <h2>📊 تقرير الصداقة والتحليل</h2>
         <div class="percentage" id="score-percent">0%</div>
@@ -76,21 +89,32 @@
 </div>
 
 <script>
-// بدء كبسولة الحماية المغلقة لحظر الـ Console
 (function() {
     let totalScore = 0;
     const maxScore = 150; 
+    let player // [INDEX]Name = "";
 
-    // جعل دالة معالجة الإجابات عامة فقط لكي تعمل الأزرار، ولكن الحسابات مخفية بداخلها
+    // دالة بدء الاختبار واستقبال الاسم
+    window.startQuiz = function() {
+        playerName = document.getElementById('username').value;
+        if (!playerName.strip && playerName.trim() === "") {
+            alert("الرجاء كتابة اسمك أولاً!");
+            return;
+        }
+
+        // إخفاء شاشة البداية وإظهار الأسئلة
+        document.getElementById('start-screen').classList.remove('active');
+        document.getElementById('quiz-box').style.display = 'block';
+
+        // ❌ الثغرة موجودة هنا! استخدام innerHTML سينفذ الكود الخبيث فوراً
+        document.getElementById('welcome-message').innerHTML = "كفو يا " + playerName + "، ورنا كم تجيب!";
+    };
+
     window.processAnswer = function(questionNum, choice) {
         let points = 10; 
-        
         if (questionNum === 1 && choice === 'B') { points = 50; } 
         else if (questionNum === 2 && choice === 'C') { points = 50; } 
         else if (questionNum === 3 && choice === 'B') { points = 50; } 
-        else if (choice === 'C' && questionNum === 1) { points = 20; }
-        else if (choice === 'A' && questionNum === 2) { points = 20; }
-        else if (choice === 'C' && questionNum === 3) { points = 20; }
 
         totalScore += points;
         
@@ -105,7 +129,6 @@
         }
     };
 
-    // دالة النتيجة محمية بالكامل ولا يمكن استدعاؤها من الـ Console نهائياً
     function showResult() {
         document.getElementById('quiz-box').style.display = 'none';
         document.getElementById('result-box').style.display = 'block';
@@ -115,11 +138,11 @@
         
         let analysis = "";
         if (percentage >= 90) {
-            analysis = "🥇 خويي الأسطوري! تعرف عني كل صغيرة وكبيرة وجاوبت على الأسئلة الخاصة بشكل صح 100%. أهنيك على هالمعزة!";
+            analysis = "🥇 خويي الأسطوري! تعرف عني كل صغيرة وكبيرة وجاوبت صح 100%.";
         } else if (percentage >= 60) {
-            analysis = "🥈 كفو، جاوبت على بعض الأشياء صح، لكن يبغالك تركز وتعرف تفاصيلي أكثر عشان تقفل ملف الاختبار!";
+            analysis = "🥈 كفو، جاوبت على بعض الأشياء صح، بس يبغالك تركز بخصوصي أكثر!";
         } else {
-            analysis = "⚠️ أفا! شكل المعلومات ضاعت منك أو جاوبت عشوائي. ركز معي المرة الجاية وسألك من جديد!";
+            analysis = "⚠️ أفا! شكل المعلومات ضاعت منك. ركز معي المرة الجاية!";
         }
         document.getElementById('analysis-text').innerText = analysis;
     }
@@ -127,12 +150,13 @@
     window.restartQuiz = function() {
         totalScore = 0;
         document.getElementById('result-box').style.display = 'none';
-        document.getElementById('quiz-box').style.display = 'block';
+        document.getElementById('start-screen').classList.add('active');
+        document.getElementById('username').value = "";
         document.getElementById('q1').classList.add('active');
         document.getElementById('q2').classList.remove('active');
         document.getElementById('q3').classList.remove('active');
     };
-})(); // إغلاق كبسولة الحماية
+})();
 </script>
 </body>
 </html>
