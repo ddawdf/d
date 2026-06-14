@@ -3,160 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اختبار الصداقة المطور 🌟</title>
+    <title>الاختبار الحصين الخارق 🛡️</title>
     <style>
         * { box-sizing: border-box; }
         body { 
-            display: flex; justify-content: center; align-items: center; min-height: 100vh; 
-            background-color: #0b0c10; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; color: #fff;
+            background: #0f172a; 
+            color: #fff; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            margin: 0; 
         }
-        .quiz-container { 
-            background-color: #1f2833; padding: 30px; border-radius: 20px; 
-            box-shadow: 0px 10px 30px rgba(0,255,204,0.1); width: 100%; max-width: 500px; text-align: center;
+        .box { 
+            background: #1e293b; 
+            padding: 30px; 
+            border-radius: 15px; 
+            text-align: center; 
+            width: 90%; 
+            max-width: 400px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3); 
         }
-        h1 { color: #66fcf1; font-size: 24px; margin-bottom: 25px; }
-        .question, .screen { font-size: 18px; margin-bottom: 20px; display: none; line-height: 1.6; }
+        h2 { color: #38bdf8; font-size: 22px; margin-bottom: 20px; }
+        .question { display: none; } 
         .active { display: block; }
-        .answers-grid { display: flex; flex-direction: column; gap: 12px; }
-        button, input { 
-            padding: 14px; border-radius: 10px; border: 2px solid #45f3ff; background-color: transparent; 
-            color: #fff; font-size: 16px; cursor: pointer; transition: 0.3s ease;
+        button { 
+            width: 100%; 
+            padding: 14px; 
+            margin: 10px 0; 
+            background: transparent; 
+            border: 2px solid #38bdf8; 
+            color: #fff; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: bold; 
+            transition: 0.3s ease;
+            text-align: center;
         }
-        input { width: 100%; text-align: center; margin-bottom: 15px; outline: none; }
-        input:focus { box-shadow: 0 0 10px #45f3ff; }
-        button:hover { background-color: #45f3ff; color: #000; font-weight: bold; box-shadow: 0 0 15px #45f3ff; }
+        button:hover { 
+            background: #38bdf8; 
+            color: #0f172a; 
+            box-shadow: 0 0 15px #38bdf8;
+        }
         .result-box { display: none; }
-        .result-box h2 { color: #66fcf1; font-size: 28px; }
-        .percentage { font-size: 48px; font-weight: bold; color: #45f3ff; margin: 20px 0; }
-        .restart-btn { 
-            background-color: #66fcf1; color: #000; font-weight: bold; border: none; 
-            width: 100%; margin-top: 15px; text-align: center;
-        }
-        .restart-btn:hover { background-color: #45f3ff; box-shadow: 0 0 15px #66fcf1; }
+        .percentage { font-size: 54px; font-weight: bold; color: #38bdf8; margin: 20px 0; }
     </style>
 </head>
 <body>
 
-<div class="quiz-container">
-    <!-- الشاشة الأولى: إدخال الاسم (مصابة بالثغرة عمداً) -->
-    <div class="screen active" id="start-screen">
-        <h1>✨ مرحباً بك في اختبار الصداقة ✨</h1>
-        <p style="margin-bottom: 15px;">الرجاء كتابة اسمك للبدء:</p>
-        <input type="text" id="username" placeholder="اكتب اسمك هنا">
-        <button style="width: 100%; text-align: center;" onclick="startQuiz()">ابدأ الاختبار 🚀</button>
-    </div>
-
-    <!-- صندوق الأسئلة (مخفي ويظهر بعد إدخال الاسم) -->
-    <div id="quiz-box" style="display: none;">
-        <!-- نص الترحيب الذي تظهر فيه الثغرة -->
-        <div id="welcome-message" style="font-size: 20px; color: #66fcf1; margin-bottom: 20px; font-weight: bold;"></div>
+<div class="box">
+    <!-- صندوق الأسئلة التفاعلية -->
+    <div id="quiz-box">
+        <h2>🛡️ اختبار صديقي المحمي بالسيرفر</h2>
         
         <div class="question active" id="q1">
             <p>1. كم عمري؟ 🤔</p>
-            <div class="answers-grid">
-                <button onclick="processAnswer(1, 'A')">18 سنة</button>
-                <button onclick="processAnswer(1, 'B')">أنت (تعرف عمري بالضبط)</button>
-                <button onclick="processAnswer(1, 'C')">22 سنة</button>
-            </div>
+            <button onclick="saveAnswer('q1', 'A')">18 سنة</button>
+            <button onclick="saveAnswer('q1', 'B')">أنت</button>
+            <button onclick="saveAnswer('q1', 'C')">22 سنة</button>
         </div>
 
         <div class="question" id="q2">
             <p>2. من عم سالم؟ 🧔</p>
-            <div class="answers-grid">
-                <button onclick="processAnswer(2, 'A')">أبو فهد</button>
-                <button onclick="processAnswer(2, 'B')">خالد</button>
-                <button onclick="processAnswer(2, 'C')">دحوم</button>
-            </div>
+            <button onclick="saveAnswer('q2', 'A')">أبو فهد</button>
+            <button onclick="saveAnswer('q2', 'B')">خالد</button>
+            <button onclick="saveAnswer('q2', 'C')">دحوم</button>
         </div>
 
         <div class="question" id="q3">
             <p>3. وش اختباري بكرة؟ 📝</p>
-            <div class="answers-grid">
-                <button onclick="processAnswer(3, 'A')">رياضيات</button>
-                <button onclick="processAnswer(3, 'B')">انقليزي</button>
-                <button onclick="processAnswer(3, 'C')">فيزياء</button>
-            </div>
+            <button onclick="saveAnswer('q3', 'A')">رياضيات</button>
+            <button onclick="saveAnswer('q3', 'B')">انقليزي</button>
+            <button onclick="saveAnswer('q3', 'C')">فيزياء</button>
         </div>
     </div>
 
-    <!-- صندوق النتيجة النهائية -->
+    <!-- صندوق عرض النتيجة النهائية القادمة من السيرفر -->
     <div id="result-box" class="result-box">
-        <h2>📊 تقرير الصداقة والتحليل</h2>
-        <div class="percentage" id="score-percent">0%</div>
-        <p id="analysis-text" style="font-size: 16px; line-height: 1.6; color: #c5c6c7;"></p>
-        <button class="restart-btn" onclick="restartQuiz()">إعادة الاختبار 🔄</button>
+        <h2>📊 النتيجة النهائية الآمنة</h2>
+        <div class="percentage" id="score-display">0%</div>
+        <p style="color: #94a3b8; font-size: 14px;">تم حساب النتيجة وفحصها بالكامل داخل السيرفر السحابي بأمان 🔒</p>
     </div>
 </div>
 
 <script>
+// كبسولة الحماية المغلقة (الدرع البرمجي)
 (function() {
-    let totalScore = 0;
-    const maxScore = 150; 
-    let playerName = "";
+    let userAnswers = {};
 
-    // دالة بدء الاختبار واستقبال الاسم
-    window.startQuiz = function() {
-        playerName = document.getElementById('username').value;
-        // تم تصحيح التحقق هنا ليعمل على المتصفحات بشكل سليم
-        if (!playerName || playerName.trim() === "") {
-            alert("الرجاء كتابة اسمك أولاً!");
-            return;
-        }
-
-        // إخفاء شاشة البداية وإظهار الأسئلة
-        document.getElementById('start-screen').classList.remove('active');
-        document.getElementById('quiz-box').style.display = 'block';
-
-        // ❌ الثغرة موجودة هنا! استخدام innerHTML سينفذ الكود الخبيث فوراً
-        document.getElementById('welcome-message').innerHTML = "كفو يا " + playerName + "، ورنا كم تجيب!";
-    };
-
-    window.processAnswer = function(questionNum, choice) {
-        let points = 10; 
-        if (questionNum === 1 && choice === 'B') { points = 50; } 
-        else if (questionNum === 2 && choice === 'C') { points = 50; } 
-        else if (questionNum === 3 && choice === 'B') { points = 50; } 
-
-        totalScore += points;
+    window.saveAnswer = function(qId, choice) {
+        userAnswers[qId] = choice; // حفظ الرمز النصي فقط (A, B, C)
         
-     document.getElementById('welcome-message').innerText = "كفو يا " + playerName + "، ورنا كم تجيب!";
-        let nextQ = questionNum + 1;
-        let nextElem = document.getElementById('q' + nextQ);
+        let currentNum = parseInt(qId.replace('q', ''));
+        document.getElementById('q' + currentNum).classList.remove('active');
         
+        let nextElem = document.getElementById('q' + (currentNum + 1));
         if (nextElem) {
             nextElem.classList.add('active');
         } else {
-            showResult();
+            sendToBackend(); // إرسال حزمة الاختيارات عند نهاية الأسئلة
         }
     };
 
-    function showResult() {
+    function sendToBackend() {
         document.getElementById('quiz-box').style.display = 'none';
         document.getElementById('result-box').style.display = 'block';
-        
-        let percentage = Math.round((totalScore / maxScore) * 100);
-        document.getElementById('score-percent').innerText = percentage + "%";
-        
-        let analysis = "";
-        if (percentage >= 90) {
-            analysis = "🥇 خويي الأسطوري! تعرف عني كل صغيرة وكبيرة وجاوبت صح 100%.";
-        } else if (percentage >= 60) {
-            analysis = "🥈 كفو، جاوبت على بعض الأشياء صح، بس يبغالك تركز بخصوصي أكثر!";
-        } else {
-            analysis = "⚠️ أفا! شكل المعلومات ضاعت منك. ركز معي المرة الجاية!";
-        }
-        document.getElementById('analysis-text').innerText = analysis;
-    }
+        document.getElementById('score-display').innerText = "جاري الحساب...";
 
-    window.restartQuiz = function() {
-        totalScore = 0;
-        document.getElementById('result-box').style.display = 'none';
-        document.getElementById('start-screen').classList.add('active');
-        document.getElementById('username').value = "";
-        document.getElementById('q1').classList.add('active');
-        document.getElementById('q2').classList.remove('active');
-        document.getElementById('q3').classList.remove('active');
-    };
+        // 🚀 الاتصال بالسيرفر السحابي الحقيقي والمحمي الخاص بك
+        fetch('https://onrender.com', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ answers: userAnswers })
+        })
+        .then(res => res.json())
+        .then(data => {
+            // استقبال النسبة المئوية الآمنة وعرضها على الشاشة
+            document.getElementById('score-display').innerText = data.percentage + "%";
+        })
+        .catch((err) => {
+            console.error("خطأ:", err);
+            document.getElementById('score-display').innerText = "خطأ في الاتصال";
+        });
+    }
 })();
 </script>
 </body>
