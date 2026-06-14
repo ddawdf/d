@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اختبار الصداقة المخصص 🌟</title>
+    <title>اختبار الصداقة المحمي 🌟</title>
     <style>
         * { box-sizing: border-box; }
         body { 
@@ -42,27 +42,27 @@
         <div class="question active" id="q1">
             <p>1. كم عمري؟ 🤔</p>
             <div class="answers-grid">
-                <button onclick="nextQuestion(1, 10)">18 سنة</button>
-                <button onclick="nextQuestion(1, 50)">أنت (تعرف عمري بالضبط)</button>
-                <button onclick="nextQuestion(1, 20)">22 سنة</button>
+                <button onclick="processAnswer(1, 'A')">18 سنة</button>
+                <button onclick="processAnswer(1, 'B')">أنت (تعرف عمري بالضبط)</button>
+                <button onclick="processAnswer(1, 'C')">22 سنة</button>
             </div>
         </div>
 
         <div class="question" id="q2">
             <p>2. من عم سالم؟ 🧔</p>
             <div class="answers-grid">
-                <button onclick="nextQuestion(2, 20)">أبو فهد</button>
-                <button onclick="nextQuestion(2, 10)">خالد</button>
-                <button onclick="nextQuestion(2, 50)">دحوم</button>
+                <button onclick="processAnswer(2, 'A')">أبو فهد</button>
+                <button onclick="processAnswer(2, 'B')">خالد</button>
+                <button onclick="processAnswer(2, 'C')">دحوم</button>
             </div>
         </div>
 
         <div class="question" id="q3">
             <p>3. وش اختباري بكرة؟ 📝</p>
             <div class="answers-grid">
-                <button onclick="nextQuestion(3, 10)">رياضيات</button>
-                <button onclick="nextQuestion(3, 50)">انقليزي</button>
-                <button onclick="nextQuestion(3, 20)">فيزياء</button>
+                <button onclick="processAnswer(3, 'A')">رياضيات</button>
+                <button onclick="processAnswer(3, 'B')">انقليزي</button>
+                <button onclick="processAnswer(3, 'C')">فيزياء</button>
             </div>
         </div>
     </div>
@@ -76,14 +76,26 @@
 </div>
 
 <script>
+// بدء كبسولة الحماية المغلقة لحظر الـ Console
+(function() {
     let totalScore = 0;
     const maxScore = 150; 
 
-    function nextQuestion(currentQ, points) {
-        totalScore += points;
-        document.getElementById('q' + currentQ).classList.remove('active');
+    // جعل دالة معالجة الإجابات عامة فقط لكي تعمل الأزرار، ولكن الحسابات مخفية بداخلها
+    window.processAnswer = function(questionNum, choice) {
+        let points = 10; 
         
-        let nextQ = currentQ + 1;
+        if (questionNum === 1 && choice === 'B') { points = 50; } 
+        else if (questionNum === 2 && choice === 'C') { points = 50; } 
+        else if (questionNum === 3 && choice === 'B') { points = 50; } 
+        else if (choice === 'C' && questionNum === 1) { points = 20; }
+        else if (choice === 'A' && questionNum === 2) { points = 20; }
+        else if (choice === 'C' && questionNum === 3) { points = 20; }
+
+        totalScore += points;
+        
+        document.getElementById('q' + questionNum).classList.remove('active');
+        let nextQ = questionNum + 1;
         let nextElem = document.getElementById('q' + nextQ);
         
         if (nextElem) {
@@ -91,8 +103,9 @@
         } else {
             showResult();
         }
-    }
+    };
 
+    // دالة النتيجة محمية بالكامل ولا يمكن استدعاؤها من الـ Console نهائياً
     function showResult() {
         document.getElementById('quiz-box').style.display = 'none';
         document.getElementById('result-box').style.display = 'block';
@@ -102,7 +115,7 @@
         
         let analysis = "";
         if (percentage >= 90) {
-            analysis = "🥇 خويي الأسطوري! تعرف عني كل صغيرة وكبيرة وجاوبت على الأسئلة الخاصة (أنت، دحوم، وانقليزي) بشكل صح 100%. أهنيك على هالمعزة!";
+            analysis = "🥇 خويي الأسطوري! تعرف عني كل صغيرة وكبيرة وجاوبت على الأسئلة الخاصة بشكل صح 100%. أهنيك على هالمعزة!";
         } else if (percentage >= 60) {
             analysis = "🥈 كفو، جاوبت على بعض الأشياء صح، لكن يبغالك تركز وتعرف تفاصيلي أكثر عشان تقفل ملف الاختبار!";
         } else {
@@ -111,14 +124,15 @@
         document.getElementById('analysis-text').innerText = analysis;
     }
 
-    function restartQuiz() {
+    window.restartQuiz = function() {
         totalScore = 0;
         document.getElementById('result-box').style.display = 'none';
         document.getElementById('quiz-box').style.display = 'block';
         document.getElementById('q1').classList.add('active');
         document.getElementById('q2').classList.remove('active');
         document.getElementById('q3').classList.remove('active');
-    }
+    };
+})(); // إغلاق كبسولة الحماية
 </script>
 </body>
 </html>
