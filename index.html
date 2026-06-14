@@ -1,8 +1,3 @@
-import webbrowser
-import os
-
-# كود الموقع المحدث بالأسئلة والخيارات المخصصة لعام 2026
-html_content = """
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -44,7 +39,6 @@ html_content = """
     <div id="quiz-box">
         <h1>✨ هل تعرفني جيداً؟ اختبار الصداقة ✨</h1>
         
-        <!-- السؤال الأول مخصص -->
         <div class="question active" id="q1">
             <p>1. كم عمري؟ 🤔</p>
             <div class="answers-grid">
@@ -54,7 +48,6 @@ html_content = """
             </div>
         </div>
 
-        <!-- السؤال الثاني مخصص -->
         <div class="question" id="q2">
             <p>2. من عم سالم؟ 🧔</p>
             <div class="answers-grid">
@@ -64,7 +57,6 @@ html_content = """
             </div>
         </div>
 
-        <!-- السؤال الثالث مخصص -->
         <div class="question" id="q3">
             <p>3. وش اختباري بكرة؟ 📝</p>
             <div class="answers-grid">
@@ -75,7 +67,6 @@ html_content = """
         </div>
     </div>
 
-    <!-- صندوق النتيجة النهائية -->
     <div id="result-box" class="result-box">
         <h2>📊 تقرير الصداقة والتحليل</h2>
         <div class="percentage" id="score-percent">0%</div>
@@ -131,15 +122,3 @@ html_content = """
 </script>
 </body>
 </html>
-"""
-
-# حفظ الملف بصيغة ويب
-filename = "my_friendship_test.html"
-with open(filename, "w", encoding="utf-8") as f:
-    f.write(html_content)
-
-print("[+] تم تحديث الأسئلة بنجاح!")
-print("[+] الملف باسم (my_friendship_test.html) جاهز الآن.")
-
-# فتحه في المتصفح للتجربة الشخصية أولاً
-webbrowser.open('file://' + os.path.realpath(filename))
