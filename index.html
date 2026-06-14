@@ -119,7 +119,7 @@
 
         totalScore += points;
         
-        document.getElementById('q' + questionNum).classList.remove('active');
+       document.getElementById('welcome-message').innerText = "كفو يا " + playerName + "، ورنا كم تجيب!";
         let nextQ = questionNum + 1;
         let nextElem = document.getElementById('q' + nextQ);
         
