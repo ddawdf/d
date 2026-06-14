@@ -92,12 +92,13 @@
 (function() {
     let totalScore = 0;
     const maxScore = 150; 
-    let player // [INDEX]Name = "";
+    let playerName = "";
 
     // دالة بدء الاختبار واستقبال الاسم
     window.startQuiz = function() {
         playerName = document.getElementById('username').value;
-        if (!playerName.strip && playerName.trim() === "") {
+        // تم تصحيح التحقق هنا ليعمل على المتصفحات بشكل سليم
+        if (!playerName || playerName.trim() === "") {
             alert("الرجاء كتابة اسمك أولاً!");
             return;
         }
